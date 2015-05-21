@@ -1,6 +1,6 @@
-for i in `ls .nex`;
+for i in `ls *.nex`;
 do rm -rf temp*;
 mv $i temp;
-rename.R;
+Rscript rename.R;
 mv tempout $i;
 done;
