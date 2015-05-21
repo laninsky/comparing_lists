@@ -6,4 +6,4 @@ Things you need:
 
 -- Your nexus files you want to have the names replaced on
 
--- For the nexus files, namelist.txt, and the script rename.R to be in the same directory. Once they are, you can cycle through multiple nexus files by copying and pasting the script in rename.sh
+-- For the nexus files, namelist.txt, and the script rename.R to be in the same directory. Once they are, you can cycle through multiple nexus files by copying and pasting the script in rename.sh. The R script assumes you have previously installed the R package 'stringr'.
