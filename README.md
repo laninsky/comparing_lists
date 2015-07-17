@@ -43,19 +43,19 @@ extdata_dir = np(system.file("extdata", package="BioGeoBEARS"))
 extdata_dir
 list.files(extdata_dir)
 
-star <- "star.newick"
-moref(star)
-tr = read.tree(star)
+mito <- "mito.newick"
+moref(mito)
+tr = read.tree(mito)
 tr
 plot(tr)
 axisPhylo()
 
 #Make sure your geo.data file has tabs between title line items: no. of species, no. of geographic areas, parenthesis with name of geographic areas within it (but spaces between the actual geographic names as well). The 0/1 states for each species should be concatenated, but there should be a tab between the species name and the geographic 0/1 states
-geogfn = "geo.data"
+geogfn = "geo_2.data"
 moref(geogfn)
 tipranges = getranges_from_LagrangePHYLIP(lgdata_fn=geogfn)
 tipranges
-max_range_size = 4
+max_range_size = 5
 
 #The above is from lines 1-30 in Y-C's script
 
@@ -75,7 +75,7 @@ BioGeoBEARS_run_object$num_cores_to_use=1
 BioGeoBEARS_run_object$force_sparse=FALSE
 # Give BioGeoBEARS the location of the geography text file
 BioGeoBEARS_run_object$geogfn = geogfn
-BioGeoBEARS_run_object$trfn = star
+BioGeoBEARS_run_object$trfn = mito
 BioGeoBEARS_run_object = readfiles_BioGeoBEARS_run(BioGeoBEARS_run_object)
 BioGeoBEARS_run_object$return_condlikes_table = TRUE
 BioGeoBEARS_run_object$calc_TTL_loglike_from_condlikes_table = TRUE
@@ -95,7 +95,7 @@ check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 # For a slow analysis, run once, then set runslow=FALSE to just
 # load the saved result.
 runslow = TRUE
-resfn = "star_V1.Rdata"
+resfn = "mito_V1.Rdata"
 
 if (runslow)
 {
@@ -112,7 +112,7 @@ resDEC = res
 #Lines 98 onwards
 
 BioGeoBEARS_run_object = define_BioGeoBEARS_run()
-BioGeoBEARS_run_object$trfn = star
+BioGeoBEARS_run_object$trfn = mito
 BioGeoBEARS_run_object$geogfn = geogfn
 BioGeoBEARS_run_object$max_range_size = max_range_size
 BioGeoBEARS_run_object$speedup=TRUE          # shorcuts to speed ML search; use FALSE if worried (e.g. >3 params)
@@ -137,7 +137,7 @@ BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","type"] = "free
 BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","init"] = jstart
 BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","est"] = jstart
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
-resfn = "star_DEC+J_M0_unconstrained_v1.Rdata"
+resfn = "mito_DEC+J_M0_unconstrained_v1.Rdata"
 
 runslow = TRUE
 if (runslow)
@@ -155,9 +155,9 @@ resDECj = res
 
 #Lines 138 onwards
 
-pdffn = "star_DEC_vs_DEC+J_M0_unconstrained_v1.pdf"
+pdffn = "mito_DEC_vs_DEC+J_M0_unconstrained_v1.pdf"
 pdf(pdffn, width=8.5, height=11)
-analysis_titletxt ="BioGeoBEARS DEC on star M0_unconstrained"
+analysis_titletxt ="BioGeoBEARS DEC on mito M0_unconstrained"
 
 results_object = resDEC
 scriptdir = np(system.file("extdata/a_scripts", package="BioGeoBEARS"))
@@ -165,7 +165,7 @@ res2 = plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=l
 # Pie chart
 plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="pie", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=tr, tipranges=tipranges)
 
-analysis_titletxt ="BioGeoBEARS DEC+J on star M0_unconstrained"
+analysis_titletxt ="BioGeoBEARS DEC+J on mito M0_unconstrained"
 
 # Setup lines #147 onwards
 results_object = resDECj
@@ -180,7 +180,7 @@ system(cmdstr) # Plot it
 BioGeoBEARS_run_object
 BioGeoBEARS_run_object = define_BioGeoBEARS_run()
 
-BioGeoBEARS_run_object$trfn = star
+BioGeoBEARS_run_object$trfn = mito
 BioGeoBEARS_run_object$geogfn = geogfn
 BioGeoBEARS_run_object$max_range_size = max_range_size
 BioGeoBEARS_run_object$use_optimx = TRUE
@@ -215,7 +215,7 @@ BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["mx01v","est"] = 0.
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 runslow = TRUE
 
-resfn = "star_DIVALIKE_M0_unconstrained_v1.Rdata"
+resfn = "mito_DIVALIKE_M0_unconstrained_v1.Rdata"
 
 if (runslow)
 {
@@ -230,7 +230,7 @@ resDIVALIKE = res
 }
 BioGeoBEARS_run_object = define_BioGeoBEARS_run()
 
-BioGeoBEARS_run_object$trfn = star
+BioGeoBEARS_run_object$trfn = mito
 
 BioGeoBEARS_run_object$geogfn = geogfn
 BioGeoBEARS_run_object$max_range_size = max_range_size
@@ -291,7 +291,7 @@ check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 
 #Lines 261 onwards
 
-resfn = "star_DIVALIKE+J_M0_unconstrained_v1.Rdata"
+resfn = "mito_DIVALIKE+J_M0_unconstrained_v1.Rdata"
 runslow = TRUE
 if (runslow)
 {
@@ -306,9 +306,9 @@ load(resfn)
 resDIVALIKEj = res
 }
 
-pdffn = "star_DIVALIKE_vs_DIVALIKE+J_M0_unconstrained_v1.pdf"
+pdffn = "mito_DIVALIKE_vs_DIVALIKE+J_M0_unconstrained_v1.pdf"
 pdf(pdffn, width=8.5, height=11)
-analysis_titletxt ="BioGeoBEARS DIVALIKE on star M0_unconstrained"
+analysis_titletxt ="BioGeoBEARS DIVALIKE on mito M0_unconstrained"
 
 # Setup
 results_object = resDIVALIKE
@@ -317,7 +317,7 @@ res2 = plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=l
 # Pie chart
 plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="pie", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=tr, tipranges=tipranges)
 
-analysis_titletxt ="BioGeoBEARS DIVALIKE+J on star M0_unconstrained"
+analysis_titletxt ="BioGeoBEARS DIVALIKE+J on mito M0_unconstrained"
 # Setup Lines 286 onwards
 results_object = resDIVALIKEj
 scriptdir = np(system.file("extdata/a_scripts", package="BioGeoBEARS"))
@@ -328,7 +328,7 @@ dev.off()
 cmdstr = paste("open ", pdffn, sep="")
 system(cmdstr)
 BioGeoBEARS_run_object = define_BioGeoBEARS_run()
-BioGeoBEARS_run_object$trfn = star
+BioGeoBEARS_run_object$trfn = mito
 
 BioGeoBEARS_run_object$geogfn = geogfn
 BioGeoBEARS_run_object$max_range_size = max_range_size
@@ -368,7 +368,7 @@ BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["mx01y","est"] = 0.
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 runslow = TRUE
 
-resfn = "star_BAYAREALIKE_M0_unconstrained_v1.Rdata"
+resfn = "mito_BAYAREALIKE_M0_unconstrained_v1.Rdata"
 
 if (runslow)
 {
@@ -383,7 +383,7 @@ resBAYAREALIKE = res
 }
 BioGeoBEARS_run_object = define_BioGeoBEARS_run()
 
-BioGeoBEARS_run_object$trfn = star
+BioGeoBEARS_run_object$trfn = mito
 
 BioGeoBEARS_run_object$geogfn = geogfn
 BioGeoBEARS_run_object$max_range_size = max_range_size
@@ -453,7 +453,7 @@ BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","max"] = 0.9999
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 
 #Lines 414 onwards
-resfn = "star_BAYAREALIKE+J_M0_unconstrained_v1.Rdata"
+resfn = "mito_BAYAREALIKE+J_M0_unconstrained_v1.Rdata"
 runslow = TRUE
 if (runslow)
 {
@@ -467,10 +467,10 @@ load(resfn)
 resBAYAREALIKEj = res
 }
 
-pdffn = "star_BAYAREALIKE_vs_BAYAREALIKE+J_M0_unconstrained_v1.pdf"
+pdffn = "mito_BAYAREALIKE_vs_BAYAREALIKE+J_M0_unconstrained_v1.pdf"
 pdf(pdffn, width=8.5, height=11)
 
-analysis_titletxt ="BioGeoBEARS BAYAREALIKE on star M0_unconstrained"
+analysis_titletxt ="BioGeoBEARS BAYAREALIKE on mito M0_unconstrained"
 
 # Setup
 results_object = resBAYAREALIKE
@@ -480,7 +480,7 @@ res2 = plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=l
 # Pie chart
 plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="pie", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=tr, tipranges=tipranges)
 
-analysis_titletxt ="BioGeoBEARS BAYAREALIKE+J on star M0_unconstrained"
+analysis_titletxt ="BioGeoBEARS BAYAREALIKE+J on mito M0_unconstrained"
 
 # Setup
 results_object = resBAYAREALIKEj
@@ -550,9 +550,9 @@ teststable
 restable
 teststable
 
-save(restable, file="starrestable_v1.Rdata")
-load(file="starrestable_v1.Rdata")
+save(restable, file="mitorestable_v1.Rdata")
+load(file="mitorestable_v1.Rdata")
 
 # Loads to "teststable"
-save(teststable, file="starteststable_v1.Rdata")
-load(file="starteststable_v1.Rdata")
+save(teststable, file="mitoteststable_v1.Rdata")
+load(file="mitoteststable_v1.Rdata")
