@@ -29,4 +29,5 @@ Get a copy of Quartet MaxCut (http://research.haifa.ac.il/~ssagi/software/QMCN.t
 /scratch/a499400/bin/QMCN/quartet-agreement-Linux-64 tree=MXCNtree.dat qrtt=SNAPP_60.qfile 
 /scratch/a499a400/bin/QMCN/genTreeAndQuartets-Linux-64 42 111930 55.9 0
 
+Bump up the number of quartets sampled
 
