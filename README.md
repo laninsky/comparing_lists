@@ -7,3 +7,8 @@ Things you need:
 -- Your nexus files you want to have the names replaced within.
 
 -- For the nexus files, namelist.txt, and the script rename.R to be in the same directory. Once they are, you can cycle through multiple nexus files by copying and pasting the script in rename.sh. The R script assumes you have previously installed the R package 'stringr'.
+
+This pipeline wouldn't be possible without:
+
+R: R Core Team. 2015. R: A language and environment for statistical computing. URL http://www.R-project.org/. R Foundation for Statistical Computing, Vienna, Austria. https://www.r-project.org/
+
