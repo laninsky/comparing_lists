@@ -20,45 +20,28 @@ gettrees file=SNAPP_80_boot.qfm; contree all/strict=no majrule=yes usetreewts=ye
 ```
 
 The svdq ? command gives you a list of the available options for use with SVDQuartets if you run it after launching paup:
+```
 Keyword ------- Option type --------------------- Current setting ----------
-
 evalQuartets    all|random                        random
-
 nquartets       <real-value>                      100000
-
 preferAllQ      no|yes                            yes
-
 speciesTree     no|yes                            no
-
 partition       <taxpartition-name>               (none)
-
 treeInf         QFM|curTrees|none                 QFM
-
 seed            <integer-value>                   0
-
 bootstrap       no|yes                            no
-
 nreps           <integer-value>                   100
-
 nthreads        ncpus|<number-of-threads>         2
-
 mrpFile         <species-outfile-name>            (none)
-
 qfile           <quartets-outfile-name>           (none)
-
 qformat         qmc|qfm                           qmc
-
 replace         no|yes                           *no
-
 showScores      no|yes                            no
-
 showSV          no|yes                            no
-
 treeFile        <filename-for-bootstrap-treefile> (none)
-
 treemodel       mscoalescent|shared               mscoalescent
                                                  *Option is nonpersistent
-
+```
 
 For more information on this, check out:
 http://evomicsorg.wpengine.netdna-cdn.com/wp-content/uploads/2015/01/SVDquartets_tutorial2015.pdf
@@ -67,9 +50,7 @@ http://www.stat.osu.edu/~lkubatko/SVDquartets_tutorial2015.html
 
 If you don't evaluate all of the quartets, bump up the number of quartets sampled
 
-Make sure to change the qfile, bootstrap treeFile and tree file to whatever you would rather call them
-
-
+Make sure to change the qfile, bootstrap treeFile and tree file to whatever you would rather call them. This method is going to output the QFM tree inference method. The step below should output the Quartet Maxcut method
 
 #Step 4 -- THIS IS AS FAR AS I HAVE GOT
 Get a copy of Quartet MaxCut (http://research.haifa.ac.il/~ssagi/software/QMCN.tar.gz)
