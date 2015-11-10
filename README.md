@@ -9,28 +9,53 @@ Modify the PBS file below to execute it for your data e.g.
 
 ```
 /scratch/a499a400/bin/paup4a146_centos64 
-execute SNAPP_60.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap treeFile=SNAPP_60_boot.qfm; savetrees file=SNAPP_60.qfm; quit;
+execute SNAPP_60.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap treeFile=SNAPP_60_boot.qfm; savetrees file=SNAPP_60.qfm;
+
+gettrees file=SNAPP_60_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_60_con.tre;
+
+execute SNAPP_80.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_80.qfile bootstrap treeFile=SNAPP_80_boot.qfm; savetrees file=SNAPP_80.qfm; gettrees file=SNAPP_80_boot.qfm; 
+
+gettrees file=SNAPP_80_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_80_con.tre; quit;
+
 ```
 
 The svdq ? command gives you a list of the available options for use with SVDQuartets if you run it after launching paup:
 Keyword ------- Option type --------------------- Current setting ----------
+
 evalQuartets    all|random                        random
+
 nquartets       <real-value>                      100000
+
 preferAllQ      no|yes                            yes
+
 speciesTree     no|yes                            no
+
 partition       <taxpartition-name>               (none)
+
 treeInf         QFM|curTrees|none                 QFM
+
 seed            <integer-value>                   0
+
 bootstrap       no|yes                            no
+
 nreps           <integer-value>                   100
+
 nthreads        ncpus|<number-of-threads>         2
+
 mrpFile         <species-outfile-name>            (none)
+
 qfile           <quartets-outfile-name>           (none)
+
 qformat         qmc|qfm                           qmc
+
 replace         no|yes                           *no
+
 showScores      no|yes                            no
+
 showSV          no|yes                            no
+
 treeFile        <filename-for-bootstrap-treefile> (none)
+
 treemodel       mscoalescent|shared               mscoalescent
                                                  *Option is nonpersistent
 
