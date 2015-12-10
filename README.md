@@ -9,13 +9,9 @@ Modify the PBS file below to execute it for your data e.g.
 
 ```
 /scratch/a499a400/bin/paup4a146_centos64 
-execute SNAPP_60.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap treeFile=SNAPP_60_boot.qfm; savetrees file=SNAPP_60.qfm;
+execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap treeFile=SNAPP_boot.qfm; savetrees file=SNAPP.qfm;
 
-gettrees file=SNAPP_60_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_60_con.tre;
-
-execute SNAPP_80.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_80.qfile bootstrap treeFile=SNAPP_80_boot.qfm; savetrees file=SNAPP_80.qfm; gettrees file=SNAPP_80_boot.qfm; 
-
-gettrees file=SNAPP_80_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_80_con.tre; quit;
+gettrees file=SNAPP_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_con.tre;
 
 ```
 
