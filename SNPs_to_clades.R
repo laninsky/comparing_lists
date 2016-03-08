@@ -1,8 +1,4 @@
-working_dir <- "C:/Users/a499a400/Dropbox/chan"
-charset <- "Char.txt"
-tree <- "ExaBayes_ConsensusExtendedMajorityRuleNexus.contree.tre"
-
-#SNPs_to_clades <- function(working_dir,charset,tree) {
+SNPs_to_clades <- function(working_dir,charset,tree) {
 
 #loading libraries and loading in files
 library(stringr)
