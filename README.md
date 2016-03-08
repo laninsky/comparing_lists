@@ -14,9 +14,7 @@ Where your charset is the output from MESQUITE you edited in word to remove the 
 e.g. SNPs_to_clades("C:/Users/a499a400/Dropbox/chan","Char.txt","ExaBayes_ConsensusExtendedMajorityRuleNexus.contree.tre")
 
 #Output
-You should get two tab-delimited files as output: the first (list_of_clades_in_tree.txt), lists ancestral daughter nodes in the left column, and daughter nodes of these in the middle column (separated by commas), and the branchlengths between the ancestor and daughter nodes (also tab delimited) in the right column. This file is just produced for your reference.
-
-The second file is probably the one you will be more interested in (state_changes_along_branches.txt). This file has three rows at the top - the first row has the ancestral node, and the second row has the daughter node (in this file, each of the daughters has its own column, rather than being comma separated), and the third row has the branchlengths between these. In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes along the branch, divided by branchlength, are given for each SNP.
+You should a two tab-delimited file as output (state_changes_along_branches.txt). This file has three rows at the top - the first row has the ancestral nodes, and the second row has the daughter nodes (in this file, each of the daughters has its own column, rather than being comma separated), and the third row has the branchlengths between these. In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes along the branch, divided by branchlength, are given for each SNP.
 
 #MSDS
 You are then probably going to want to visualize branches in the tree which seem to have more or less state changes given their length. These might be longer branch lengths (where potentially multiple substitutions have masked each other), or potentially areas of the genome affected by introgression etc.
@@ -33,7 +31,7 @@ text(x, y, cex=.7)
 ```
 In the resulting plot, you might see some numbers as outliers. These are your problem branches if so. Create an array with them:
 ```
-problem <- c(112,121)
+problem <- c(119,59,80)
 problem <- problem+1
 recordtaxa[1:2,problem]
 ```
