@@ -14,9 +14,9 @@ Where your charset is the output from MESQUITE you edited in word to remove the 
 e.g. SNPs_to_clades("C:/Users/a499a400/Dropbox/chan","Char.txt","ExaBayes_ConsensusExtendedMajorityRuleNexus.contree.tre")
 
 #Output
-You should get two tab-delimited files as output: the first (list_of_clades_in_tree.txt), lists ancestral daughter nodes in the left column, and daughter nodes of these in the right column (separated by commas). This file is just produced for your reference.
+You should get two tab-delimited files as output: the first (list_of_clades_in_tree.txt), lists ancestral daughter nodes in the left column, and daughter nodes of these in the middle column (separated by commas), and the branchlengths between the ancestor and daughter nodes (also tab delimited) in the right column. This file is just produced for your reference.
 
-The second file is probably the one you will be more interested in (state_changes_along_branches.txt). This file has two rows at the top - the first row has the ancestral node, and the second row has the daughter node (in this file, each of the daughters has its own column, rather than being comma separated). In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes in each SNP are given.
+The second file is probably the one you will be more interested in (state_changes_along_branches.txt). This file has three rows at the top - the first row has the ancestral node, and the second row has the daughter node (in this file, each of the daughters has its own column, rather than being comma separated), and the third row has the branchlengths between these. In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes along the branch, divided by branchlength, are given for each SNP.
 
 #MSDS
 You are then probably going to want to visualize branches in the tree which seem to have more state changes. These might be longer branch lengths (where there is more time for changes to occur), or potentially areas of the genome affected by introgression etc.
