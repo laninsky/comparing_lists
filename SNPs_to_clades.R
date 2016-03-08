@@ -87,7 +87,7 @@ recordtaxa[m,2] <- torecord
 recordtaxa[1:dim(recordtaxa)[1],2] <- gsub("(","",recordtaxa[1:dim(recordtaxa)[1],2],fixed=TRUE)
 recordtaxa[1:dim(recordtaxa)[1],2] <- gsub(")","",recordtaxa[1:dim(recordtaxa)[1],2],fixed=TRUE)
 recordtaxa <- recordtaxa[order(nchar(recordtaxa[,2])),]
-for (i in 1:(dim(recordtaxa)[1])) {
+for (i in 1:((dim(recordtaxa)[1])-1)) {
 for (j in (i+1):(dim(recordtaxa)[1])) {
 recordtaxa[j,2] <- gsub(recordtaxa[i,2],recordtaxa[i,1],recordtaxa[j,2],fixed=TRUE)
 }
