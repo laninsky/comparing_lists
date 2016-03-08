@@ -19,7 +19,7 @@ You should get two tab-delimited files as output: the first (list_of_clades_in_t
 The second file is probably the one you will be more interested in (state_changes_along_branches.txt). This file has three rows at the top - the first row has the ancestral node, and the second row has the daughter node (in this file, each of the daughters has its own column, rather than being comma separated), and the third row has the branchlengths between these. In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes along the branch, divided by branchlength, are given for each SNP.
 
 #MSDS
-You are then probably going to want to visualize branches in the tree which seem to have more state changes. These might be longer branch lengths (where there is more time for changes to occur), or potentially areas of the genome affected by introgression etc.
+You are then probably going to want to visualize branches in the tree which seem to have more or less state changes given their length. These might be longer branch lengths (where potentially multiple substitutions have masked each other), or potentially areas of the genome affected by introgression etc.
 ```
 setwd("C:/Users/a499a400/Dropbox/chan")
 recordtaxa <- as.matrix(read.table("state_changes_along_branches.txt",sep="\t"))
@@ -33,7 +33,7 @@ text(x, y, cex=.7)
 ```
 In the resulting plot, you might see some numbers as outliers. These are your problem branches if so. Create an array with them:
 ```
-problem <- c(120,121,107,118)
+problem <- c(112,121)
 problem <- problem+1
 recordtaxa[1:2,problem]
 ```
