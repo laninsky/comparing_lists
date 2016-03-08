@@ -37,13 +37,7 @@ temptaxa <- unlist(strsplit(temptaxa,"\t",fixed=TRUE))[subsample]
 temptree <- unlist(strsplit(temptree," ",fixed=TRUE))
 temptree <- temptree[length(temptree)]
 temptree <- gsub("\\[.*?\\]","",temptree,fixed=FALSE)
-branchlengths <- unlist(strsplit(temptree,":",fixed=TRUE))
-branchlengths <- branchlengths[-1]
-branchlengths <- gsub(").*","",branchlengths,fixed=FALSE)
-branchlengths <- gsub("\\(.*","",branchlengths,fixed=FALSE)
-branchlengths <- gsub(",.*","",branchlengths,fixed=FALSE)
 
-temptree <- gsub("\\:[0-9]+.[0-9]+[e-]*[0-9]*","",temptree,fixed=FALSE)
 temptree <- gsub(";","",temptree,fixed=TRUE)
 temptree <- unlist(strsplit(temptree,","))
 
@@ -51,9 +45,10 @@ temptree <- unlist(strsplit(temptree,","))
 for (i in 1:(length(temptaxa))) {
 for (j in 1:(length(temptree))) {
 temppattern <- gsub("\\(","",temptree[j])
-temppattern <- gsub("\\)","",temppattern)
+temppattern <- gsub("\\).*","",temppattern)
+temppattern <- gsub(":.*","",temppattern)
 if(temppattern==i) {
-temptree[j] <- gsub(i,temptaxa[i],temptree[j])
+temptree[j] <- gsub(paste(i,":",sep=""),paste(temptaxa[i],":",sep=""),temptree[j],fixed=TRUE)
 break
 }
 }
@@ -64,7 +59,7 @@ nodenames <- c(temptaxa,charsetable[1,-1])
 nodenames <- nodenames[duplicated(nodenames)==FALSE]
 nodenames <- nodenames[(length(temptaxa)+1):(length(nodenames))]
 nodenames <- sort(as.numeric(nodenames))
-recordtaxa <- matrix(NA, ncol=2,nrow=(length(nodenames)))
+recordtaxa <- matrix(NA, ncol=3,nrow=(length(nodenames)))
 recordtaxa[,1] <- nodenames
 
 #getting a list of taxa that are descendents of each internal node
@@ -89,42 +84,40 @@ recordtaxa[m,2] <- torecord
 }
 }
 
-#substituting internal node names for groups of taxa (so  
-recordtaxa[1:dim(recordtaxa)[1],2] <- gsub("(","",recordtaxa[1:dim(recordtaxa)[1],2],fixed=TRUE)
-recordtaxa[1:dim(recordtaxa)[1],2] <- gsub(")","",recordtaxa[1:dim(recordtaxa)[1],2],fixed=TRUE)
-recordtaxa <- recordtaxa[order(nchar(recordtaxa[,2])),]
-for (i in 1:((dim(recordtaxa)[1])-1)) {
-for (j in (i+1):(dim(recordtaxa)[1])) {
-recordtaxa[j,2] <- gsub(recordtaxa[i,2],recordtaxa[i,1],recordtaxa[j,2],fixed=TRUE)
+
+columns <- nchar(recordtaxa[,2])-nchar(gsub(",","",recordtaxa[,2]))
+recordtaxa <- recordtaxa[order(columns),]
+
+#calculatingbranchlengths
+newrecordtaxa <- NULL
+
+for (i in 1:(dim(recordtaxa)[1]-1)) {
+taxa <- unlist(strsplit(recordtaxa[i,2],","))
+taxa <- gsub("(","",taxa,fixed=TRUE)
+taxa <- gsub("\\).*","",taxa,fixed=FALSE)
+replacetaxa <- paste(taxa,collapse=",")
+replacetaxa <- paste("(",replacetaxa,")",sep="")
+for (j in (i+1):dim(recordtaxa)[1]) {
+recordtaxa[j,2] <- gsub(replacetaxa,recordtaxa[i,1],recordtaxa[j,2],fixed=TRUE)
+}
+for (j in 1:length(taxa)) {
+taxadecom <- unlist(strsplit(taxa[j],":"))
+temp <- cbind(recordtaxa[i,1],taxadecom[1],taxadecom[2])
+newrecordtaxa <- rbind(newrecordtaxa,temp)
 }
 }
 
-recordtaxa <- recordtaxa[order(as.numeric(recordtaxa[,1])),]
-
-#adding a column for branchlengths
-rowadd <- matrix(NA,nrow=dim(recordtaxa)[1],ncol=1)
-recordtaxa <- cbind(recordtaxa,rowadd)
-
-x <- 1
-for (i in 1:dim(recordtaxa)[1]) {
-numbranches <- (nchar(recordtaxa[i,2]) - nchar(gsub(",","",recordtaxa[i,2],fixed=TRUE)))
-recordtaxa[i,3] <- paste(branchlengths[x:(x+numbranches)],collapse=",")
-x <- numbranches + x + 1
+i <- dim(recordtaxa)[1]
+taxa <- unlist(strsplit(recordtaxa[i,2],","))
+taxa <- gsub("(","",taxa,fixed=TRUE)
+taxa <- gsub("\\).*","",taxa,fixed=FALSE)
+for (j in 1:length(taxa)) {
+taxadecom <- unlist(strsplit(taxa[j],":"))
+temp <- cbind(recordtaxa[i,1],taxadecom[1],taxadecom[2])
+newrecordtaxa <- rbind(newrecordtaxa,temp)
 }
 
-write.table(recordtaxa,"list_of_clades_in_tree.txt",col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
-
-# giving each daughter node its own row
-for (i in 1:(dim(recordtaxa)[1])) {
-newsecond <- unlist(strsplit(recordtaxa[i,2],","))
-newthird <- unlist(strsplit(recordtaxa[i,3],","))
-recordtaxa[i,2] <- newsecond[1]
-recordtaxa[i,3] <- newthird[1]
-for (j in 2:(length(newsecond))) {
-temprow <- cbind(recordtaxa[i,1],newsecond[j],newthird[j])
-recordtaxa <- rbind(recordtaxa,temprow)
-}
-}
+recordtaxa <- newrecordtaxa
 
 recordtaxa <- recordtaxa[order(as.numeric(recordtaxa[,2])),]
 recordtaxa <- recordtaxa[order(as.numeric(recordtaxa[,1])),]
