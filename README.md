@@ -1,7 +1,46 @@
 #Mapping_SNPs_to_trees
-You don't want to make a ton of gene trees, but you do want to assess how well your SNPs "fit" a given tree
+You want to assess how well your SNPs "fit" a given tree
 
-So the way I have gone about this is to use MESQUITE. I converted a Phylip SNP file to a nexus file (through MEGA) and imported this as the matrix (MESQUITE is funny about taxa names, so I inserted a t in front of all the sample numbers when it was a MEGA file, before converting to a nexus file), and imported the associated tree (also putting a t in front of each taxa name). In the tree window, I then went to Analysis:Tree > Trace all characters. This spits out a text window with the inferred character at each internal node. In this text window, I then selected "show terminal taxa" to make sure we got everything in there, copied it out, and pasted it into word.
+So the way I have gone about this is to use MESQUITE. I converted a sequential Phylip file to a nexus file (with invariant sites excluded) with the code below:
+```
+library(stringr)
+setwd("working_dir") # e.g. setwd("C:/Users/a499a400/Dropbox/Kaloula frogs")
+input <- readLines("filename") # e.g. input <- readLines("froggies-25pctincomplete-filled-MAFFT-gblocks.nexus.phylip")
+notaxa <- as.numeric(unlist(strsplit(input[1], " "))[1])
+nosites <-  as.numeric(unlist(strsplit(input[1], " "))[2])
+inputmatrix <- matrix(ncol=(nosites+1),nrow=notaxa)
+
+for (i in 1:notaxa) {
+temp <- unlist(strsplit(input[i+1]," "))
+inputmatrix[i,1] <- temp[1]
+inputmatrix[i,2:(dim(inputmatrix)[2])] <- unlist(strsplit(temp[2],""))
+}
+
+states <- NULL
+for (i in 1:nosites) {
+states[i] <- sum(unique(inputmatrix[,(i+1)])!="?")
+}
+
+outputmatrix <- inputmatrix[,(which(states[1:nosites]>1)+1)]
+nosites <- dim(outputmatrix)[2]
+outputmatrix <- paste(outputmatrix[,1:(dim(outputmatrix)[2])],collapse="")
+tempmatrix <- matrix(ncol=2,nrow=notaxa)
+tempmatrix[,1] <- inputmatrix[,1]
+tempmatrix[,2] <- outputmatrix
+outputmatrix <- paste(tempmatrix,collapse=" ")
+outputmatrix <- rbind("matrix",outputmatrix)
+outputmatrix <- rbind("  format datatype=dna missing=? gap=-;",outputmatrix)
+temp <- paste("  dimensions ntax=",notaxa," nchar=",nosites,";",sep="")
+outputmatrix <- rbind(temp,outputmatrix)
+outputmatrix <- rbind("begin data;",outputmatrix)
+outputmatrix <- rbind("#NEXUS",outputmatrix)
+outputmatrix <- rbind(outputmatrix,";")
+outputmatrix <- rbind(outputmatrix,"end;")
+
+write.table(outputmatrix, "output.nexus",quote=FALSE, col.names=FALSE,row.names=FALSE)
+```
+
+I imported this as the matrix (MESQUITE is funny about taxa names, so make sure you have alphabet characters as well as sample numbers), and imported the associated tree (with identical taxa names). In the tree window, I then went to Analysis:Tree > Trace all characters. This spits out a text window with the inferred character at each internal node. In this text window, I then selected "show terminal taxa" to make sure we got everything in there, copied it out, and pasted it into word.
 
 In word, I deleted the top rows describing the dataset (keeping everything from 'Char.\Node" onwards). I went through word, because I wanted to keep the tab delimited structure, because some of the characters are linked e.g. A G vs A, and therefore have a whitespace between them. After deleting these lines, I saved this as a txt file. Mesquite numbers the internal nodes in order that they appear in the tree file.
 
