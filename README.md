@@ -23,11 +23,16 @@ states[i] <- sum(unique(inputmatrix[,(i+1)])!="?")
 
 outputmatrix <- inputmatrix[,(which(states[1:nosites]>1)+1)]
 nosites <- dim(outputmatrix)[2]
-outputmatrix <- paste(outputmatrix[,1:(dim(outputmatrix)[2])],collapse="")
+
 tempmatrix <- matrix(ncol=2,nrow=notaxa)
 tempmatrix[,1] <- inputmatrix[,1]
-tempmatrix[,2] <- outputmatrix
-outputmatrix <- paste(tempmatrix,collapse=" ")
+for (i in 1:notaxa) {
+tempmatrix[i,2] <- paste(outputmatrix[i,1:(dim(outputmatrix)[2])],collapse="")
+}
+outputmatrix <- matrix(ncol=1,nrow=notaxa)
+for (i in 1:notaxa) {
+outputmatrix[i,1] <- paste(tempmatrix[i,],collapse=" ")
+}
 outputmatrix <- rbind("matrix",outputmatrix)
 outputmatrix <- rbind("  format datatype=dna missing=? gap=-;",outputmatrix)
 temp <- paste("  dimensions ntax=",notaxa," nchar=",nosites,";",sep="")
