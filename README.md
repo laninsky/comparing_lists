@@ -130,8 +130,12 @@ recordtaxa <- as.matrix(read.table("state_changes_along_branches.txt",sep="\t"))
 rsquares <- NULL
 
 for (i in 2:(dim(recordtaxa)[2]-1)) {
+recordtaxa[4:(dim(recordtaxa)[1]),i] <- as.numeric(recordtaxa[4:(dim(recordtaxa)[1]),i])*as.numeric(recordtaxa[3,i])
+}
+
+for (i in 2:(dim(recordtaxa)[2]-1)) {
 for (j in (i+1):(dim(recordtaxa)[2])) {
-lmsum <- lm(recordtaxa[3:(dim(recordtaxa)[1]),i] ~ recordtaxa[3:(dim(recordtaxa)[1]),j])
+lmsum <- lm(recordtaxa[4:(dim(recordtaxa)[1]),i] ~ recordtaxa[4:(dim(recordtaxa)[1]),j])
 temp <- c(i, j, summary(lmsum)$r.squared)
 rsquares <- rbind(rsquares, temp)
 }
@@ -146,14 +150,21 @@ For the pairs of branches that show a strong enough correlation in which SNPs ha
 recordtaxa[1:2,(rsquares[rowofinterest,1])]
 recordtaxa[1:2,(rsquares[rowofinterest,2])]
 ```
-e.g. I was interested in the last row of rsquares:
+e.g. I was interested in rows that were more than 4*sd above the mean rsq value. This meant the last six lines of the rsquares object:
 ```
-108  119 6.582298e-01
-recordtaxa[1:2,(rsquares[(dim(rsquares)[1]),1])]
-[1] "1.070000e+02" "1.190000e+02"
-recordtaxa[1:2,(rsquares[(dim(rsquares)[1]),2])]
-[1] "119.00000000" "121.00000000"
+mean(rsquares[,3])+sd(rsquares[,3])*4
+[1] 0.0620568
+
+recordtaxa[1:2,(rsquares[(dim(rsquares)[1]-5):(dim(rsquares)[1]),1])]
+     V42            V26            V26            V2             V29            V16           
+[1,] "4.000000e+01" "2.400000e+01" "2.400000e+01" "  2.00000000" "2.500000e+01" "1.500000e+01"
+[2,] "4.100000e+01" "2.500000e+01" "2.500000e+01" "  3.00000000" "3.700000e+01" "1.600000e+01"
+
+recordtaxa[1:2,(rsquares[(dim(rsquares)[1]-5):(dim(rsquares)[1]),1])]
+     V45                       V28            V41                                      V3             V40                           V18           
+[1,] "41"                      "2.500000e+01" "37"                                     "2.000000e+00" "37"                          "1.600000e+01"
+[2,] "kaloula_walteri_rmb5662" "2.600000e+01" "kaloula_pictameridionalishybrid_rmb586" "1.400000e+01" "kaloula_picta" "1.800000e+01"
 ```
-i.e. in this dataset, the branch from internal nodes 107 > 119 appears to show a lot of correlated changes in specific SNPs with the branch from internal nodes 119 > 121. Interestingly, in this dataset, there is a known hybrid that shares ancestral node 119 with the branch that leads to 121.
+i.e. taking the result from the first columns: the specific SNPs that have changes in the branch that leads from node 40 > 41, are correlated with the changes in the branch that leads from 41 to kaloula_walteri
 
 
