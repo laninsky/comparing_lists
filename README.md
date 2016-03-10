@@ -138,6 +138,8 @@ rsquares <- rbind(rsquares, temp)
 }
 
 rsquares <- rsquares[order(rsquares[,3]),]
+
+plot(rsquares[,3])
 ```
 For the pairs of branches that show a strong enough correlation in which SNPs have changes along the, for you to be interested in them, you can query them by:
 ```
