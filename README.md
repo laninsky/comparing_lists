@@ -57,6 +57,24 @@ Where your charset is the output from MESQUITE you edited in word to remove the 
 ```
 SNPs_to_clades("C:/Users/a499a400/Dropbox/chan","Char.txt","ExaBayes_ConsensusExtendedMajorityRuleNexus.contree.tre")
 ```
+
+If you get the following error: 
+```
+Error in if ((charsetable[(i - 2), first] == "N" | charsetable[(i - 2),  : 
+  argument is of length zero
+```
+This means that your charset does not have the same names as in your treefile. This might have happened if MESQUITE stripped out "_" characters and replaced them with spaces. To correct this (replace charset with your file name):
+```
+charsetable <- as.matrix(read.table(charset,sep="\t"))
+charsetable[1,] <- gsub(" ","_",charsetable[1,],fixed=TRUE)
+write.table(charsetable,charset,col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
+
+You can safely ignore the following errors
+```
+In addition: Warning messages:
+1: In sort(as.numeric(nodenames)) : NAs introduced by coercion
+2: In order(as.numeric(recordtaxa[, 2])) : NAs introduced by coercion
+```
 #Output
 You should a two tab-delimited file as output (state_changes_along_branches.txt). This file has three rows at the top - the first row has the ancestral nodes, and the second row has the daughter nodes (in this file, each of the daughters has its own column, rather than being comma separated), and the third row has the branchlengths between these. In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes along the branch, divided by branchlength, are given for each SNP.
 
