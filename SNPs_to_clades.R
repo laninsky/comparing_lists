@@ -13,7 +13,7 @@ temptree <- NULL
 
 #extracting the tree and taxa block from the treefile
 for (i in 1:(length(treeset))) {
-if (grepl("taxlabels",treeset[i],fixed=TRUE)==TRUE) {
+if (grepl("axlabels",treeset[i],fixed=TRUE)==TRUE) {
 x <- 1
 }
 if (grepl(";",treeset[i],fixed=TRUE)==TRUE) {
@@ -32,8 +32,8 @@ temptree <- rbind(temptree,treeset[i])
 
 # making the tree and taxa variables prettier
 temptaxa <- temptaxa[-1,1]
-subsample <- seq(3,(length(temptaxa)*3),3)
-temptaxa <- unlist(strsplit(temptaxa,"\t",fixed=TRUE))[subsample]
+temptaxa <- gsub("\t"," ",temptaxa,fixed=TRUE)
+temptaxa <- str_trim(temptaxa)
 temptree <- unlist(strsplit(temptree," ",fixed=TRUE))
 temptree <- temptree[length(temptree)]
 temptree <- gsub("\\[.*?\\]","",temptree,fixed=FALSE)
