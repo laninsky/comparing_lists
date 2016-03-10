@@ -68,7 +68,7 @@ This means that your charset does not have the same names as in your treefile. T
 charsetable <- as.matrix(read.table(charset,sep="\t"))
 charsetable[1,] <- gsub(" ","_",charsetable[1,],fixed=TRUE)
 write.table(charsetable,charset,col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
-
+```
 You can safely ignore the following errors
 ```
 In addition: Warning messages:
@@ -81,7 +81,7 @@ You should a two tab-delimited file as output (state_changes_along_branches.txt)
 #MSDS
 You are then probably going to want to visualize branches in the tree which seem to have more or less state changes given their length. These might be longer branch lengths (where potentially multiple substitutions have masked each other), or potentially areas of the genome affected by introgression etc.
 ```
-setwd("C:/Users/a499a400/Dropbox/chan")
+setwd(working_dir)
 recordtaxa <- as.matrix(read.table("state_changes_along_branches.txt",sep="\t"))
 
 d <- dist(t(recordtaxa[3:(dim(recordtaxa)[1]),2:(dim(recordtaxa)[2])]))
@@ -101,7 +101,25 @@ You probably want to then exclude these outliers and run the plot again, just in
 ```
 recordtaxa <- recordtaxa[,-problem]
 ```
-Head back up and run the d <- dist function again etc.
+Head back up and run the d <- dist function again etc. For more formal analyses, I'd suggest exporting the fit object and looking for correlations with the number of changes along branches etc.
+```
+output <- t(recordtaxa[1:3,])
+fitpoints <- c("fit_x","fit_y")
+fitpoints <- rbind(fitpoints,fit$points)
+output <- cbind(output,fitpoints)
+outputother <- matrix(NA,nrow=(dim(output)[1]),ncol=3)
+
+for (i in 2:(dim(outputother)[1])) {
+outputother[i,1] <- sum((as.numeric(recordtaxa[4:(dim(recordtaxa)[1]),i]))==0)
+outputother[i,2] <- sum((as.numeric(recordtaxa[4:(dim(recordtaxa)[1]),i]))!=0)
+outputother[i,3]  <- sum(as.numeric(recordtaxa[4:(dim(recordtaxa)[1]),i]))
+}
+
+outputother[1,] <- c("invariant","changes","changes/branchlength")
+output <- cbind(output,outputother)
+
+write.table(output,"summary_of_branches.txt",col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
+```
 
 #Correlations in changes between branches
 
