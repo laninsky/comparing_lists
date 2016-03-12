@@ -58,10 +58,15 @@ Where your charset is the output from MESQUITE you edited in word to remove the 
 SNPs_to_clades("C:/Users/a499a400/Dropbox/chan","Char.txt","ExaBayes_ConsensusExtendedMajorityRuleNexus.contree.tre")
 ```
 
-If you get the following error: 
+If you get the following errors: 
 ```
 Error in if ((charsetable[(i - 2), first] == "N" | charsetable[(i - 2),  : 
   argument is of length zero
+
+or...
+
+Error in `[<-`(`*tmp*`, m, 2, value = "((((((kal #rest of your tree -->
+  subscript out of bounds
 ```
 This means that your charset does not have the same names as in your treefile. This might have happened if MESQUITE stripped out "_" characters and replaced them with spaces. To correct this (replace charset with your file name):
 ```
