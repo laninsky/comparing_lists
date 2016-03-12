@@ -58,15 +58,10 @@ Where your charset is the output from MESQUITE you edited in word to remove the 
 SNPs_to_clades("C:/Users/a499a400/Dropbox/chan","Char.txt","ExaBayes_ConsensusExtendedMajorityRuleNexus.contree.tre")
 ```
 
-If you get the following errors: 
+If you get the following error: 
 ```
 Error in if ((charsetable[(i - 2), first] == "N" | charsetable[(i - 2),  : 
   argument is of length zero
-
-or...
-
-Error in `[<-`(`*tmp*`, m, 2, value = "((((((kal #rest of your tree -->
-  subscript out of bounds
 ```
 This means that your charset does not have the same names as in your treefile. This might have happened if MESQUITE stripped out "_" characters and replaced them with spaces. To correct this (replace charset with your file name):
 ```
@@ -74,6 +69,13 @@ charsetable <- as.matrix(read.table(charset,sep="\t"))
 charsetable[1,] <- gsub(" ","_",charsetable[1,],fixed=TRUE)
 write.table(charsetable,charset,col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
 ```
+If you get this error:
+```
+Error in `[<-`(`*tmp*`, m, 2, value = "((((((kal #rest of your tree -->
+  subscript out of bounds
+```
+It means you forgot to remove the lines at the top of your charset file down to (but not including) the line beginning 'Char.\Node'. Do this, and try again.
+
 You can safely ignore the following errors
 ```
 In addition: Warning messages:
