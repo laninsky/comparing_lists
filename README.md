@@ -167,7 +167,7 @@ recordtaxa[1:2,(rsquares[(dim(rsquares)[1]-5):(dim(rsquares)[1]),1])]
 [1,] "4.000000e+01" "2.400000e+01" "2.400000e+01" "  2.00000000" "2.500000e+01" "1.500000e+01"
 [2,] "4.100000e+01" "2.500000e+01" "2.500000e+01" "  3.00000000" "3.700000e+01" "1.600000e+01"
 
-recordtaxa[1:2,(rsquares[(dim(rsquares)[1]-5):(dim(rsquares)[1]),1])]
+recordtaxa[1:2,(rsquares[(dim(rsquares)[1]-5):(dim(rsquares)[1]),2])]
      V45                       V28            V41                                      V3             V40                           V18           
 [1,] "41"                      "2.500000e+01" "37"                                     "2.000000e+00" "37"                          "1.600000e+01"
 [2,] "kaloula_walteri_rmb5662" "2.600000e+01" "kaloula_pictameridionalishybrid_rmb586" "1.400000e+01" "kaloula_picta" "1.800000e+01"
