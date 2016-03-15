@@ -19,6 +19,12 @@ nosites <- nosites[(length(nosites))]
 } else {
 nosites <- unlist(strsplit(nosites,"\\s+"))
 nosites <- nosites[(length(nosites)-1)]
+nosites2 <- arl[grepl("#Total number of polymorphic sites:",arl)]
+nosites2 <- unlist(strsplit(nosites2,"\\s+"))
+nosites2 <- nosites2[(length(nosites2))]
+if (nosites2 < nosites) {
+nosites <- nosites2
+}
 }
 
 sequence <- arl[(which(grepl("SampleData=",arl)))+1]
