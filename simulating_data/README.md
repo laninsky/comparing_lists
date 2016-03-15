@@ -10,9 +10,16 @@ treeset <- readLines("C:/Users/a499a400/Dropbox/Kaloula frogs/annotated_14July20
 
 library(stringr)
 
+nosites <- arl[grepl("#Reporting status of a maximum of ",arl)]
+
+if (length(nosites)==0) {
 nosites <- arl[grepl("#Total number of polymorphic sites:",arl)]
 nosites <- unlist(strsplit(nosites,"\\s+"))
 nosites <- nosites[(length(nosites))]
+} else {
+nosites <- unlist(strsplit(nosites,"\\s+"))
+nosites <- nosites[(length(nosites)-1)]
+}
 
 sequence <- arl[(which(grepl("SampleData=",arl)))+1]
 for (i in 1:(length(sequence))) {
