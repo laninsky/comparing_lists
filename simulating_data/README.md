@@ -6,7 +6,7 @@ I then converted the arlequin file to a nexus file to be used in MESQUITE by (mo
 ```
 setwd("C:/Users/a499a400/Dropbox/Kaloula frogs/fastimcoal/scenario")
 arl <- readLines("scenario_1_1.arp")
-treeset <- readLines("C:/Users/Alana/Dropbox/Kaloula frogs/annotated_14July2015_concatenated.tre")
+treeset <- readLines("C:/Users/a499a400/Dropbox/Kaloula frogs/annotated_14July2015_concatenated.tre")
 
 library(stringr)
 
@@ -22,7 +22,7 @@ nosites <- nosites[(length(nosites)-1)]
 nosites2 <- arl[grepl("#Total number of polymorphic sites:",arl)]
 nosites2 <- unlist(strsplit(nosites2,"\\s+"))
 nosites2 <- nosites2[(length(nosites2))]
-if (nosites2 < nosites) {
+if (as.numeric(nosites2) < as.numeric(nosites)) {
 nosites <- nosites2
 }
 }
