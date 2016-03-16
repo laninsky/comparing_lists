@@ -6,7 +6,7 @@ I then converted the arlequin file to a nexus file to be used in MESQUITE by (mo
 ```
 setwd("C:/Users/a499a400/Dropbox/Kaloula frogs/fastimcoal/scenario")
 arl <- readLines("scenario_1_1.arp")
-treeset <- readLines("C:/Users/a499a400/Dropbox/Kaloula frogs/annotated_14July2015_concatenated.tre")
+treeset <- readLines("C:/Users/Alana/Dropbox/Kaloula frogs/annotated_14July2015_concatenated.tre")
 
 library(stringr)
 
