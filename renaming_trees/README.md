@@ -1,4 +1,4 @@
-Change working directory to whatever is appropriate:
+Change working directory and treefile to whatever is appropriate. Namelist file should be constructed as for the renaming_things_inside_nexus_sequence_file instructions:
 ```
 setwd("C:\\Users\\a499a400\\Downloads")
 namelist <- as.matrix(read.table("namelist.txt"))
