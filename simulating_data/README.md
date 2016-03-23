@@ -5,7 +5,7 @@ fsc25221.exe -t scenario.tpl -n 1 -f scenario.def -q > log.log
 I then converted the arlequin file to a nexus file to be used in MESQUITE by (modify the setwd, arl and treeset locations - also this is assuming you have just one sample from each population, and that the samples were defined in the same order in the fastsimcoal file as in your treefile):
 ```
 setwd("C:/Users/a499a400/Dropbox/Kaloula frogs/fastimcoal/scenario")
-arl <- readLines("scenario_resizes_3_1_1.arp")
+arl <- readLines("scenario_1_1.arp")
 treeset <- readLines("C:/Users/a499a400/Dropbox/Kaloula frogs/annotated_14July2015_concatenated.tre")
 
 library(stringr)
