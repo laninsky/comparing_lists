@@ -137,6 +137,9 @@ second <- which((charsetable[1,]==recordtaxa[2,j])==TRUE)
 if ((charsetable[(i-2),first]=="N" | charsetable[(i-2),second]=="N")==TRUE) {
 break
 }
+if ((grepl(" ",charsetable[(i-2),first],fixed=TRUE) | grepl(" ",charsetable[(i-2),second],fixed=TRUE))==TRUE) {
+break
+}
 if(charsetable[(i-2),first]==charsetable[(i-2),second]) {
 recordtaxa[i,j] <- 0
 } else {
