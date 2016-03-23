@@ -142,6 +142,12 @@ recordtaxa[4:(dim(recordtaxa)[1]),i] <- as.numeric(recordtaxa[4:(dim(recordtaxa)
 
 for (i in 2:(dim(recordtaxa)[2]-1)) {
 for (j in (i+1):(dim(recordtaxa)[2])) {
+
+count1 <- sum(!(is.na((unique(recordtaxa[4:(dim(recordtaxa)[1]),i]))))==TRUE)
+count2 <- sum(!(is.na((unique(recordtaxa[4:(dim(recordtaxa)[1]),j]))))==TRUE)
+
+#################UP TO HERE FIGURING SOMETHING OUT
+
 lmsum <- lm(recordtaxa[4:(dim(recordtaxa)[1]),i] ~ recordtaxa[4:(dim(recordtaxa)[1]),j])
 temp <- c(i, j, summary(lmsum)$r.squared)
 rsquares <- rbind(rsquares, temp)
