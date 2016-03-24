@@ -1,5 +1,5 @@
 working_dir <- "C:/Users/a499a400/Dropbox/Kaloula frogs"
-charset <- "origchar.txt"
+charset <- "simchar.txt"
 tree <- "annotated_14July2015_concatenated.tre"
 
 library(stringr)
@@ -143,22 +143,6 @@ tempbranches1 <- as.matrix(c("2", "0", "0"),ncol=1)
 }
 for (j in (i+1):(length(taxa_plus_nodenames))) {
 
-taxaicol <- which(charsetable[1,]==taxa_plus_nodenames[i])
-taxajcol <- which(charsetable[1,]==taxa_plus_nodenames[j])
-taxacombcol <- c(taxaicol,taxajcol)
-
-list1 <- which(charsetable[2:(dim(charsetable)[1]),taxaicol]==charsetable[2:(dim(charsetable)[1]),taxajcol])
-list2 <- which(grepl(" ",charsetable[2:(dim(charsetable)[1]),taxajcol],fixed=TRUE)==FALSE)
-list3 <- (charsetable[2:(dim(charsetable)[1]),taxaicol]!=charsetable[2:(dim(charsetable)[1]),-taxacombcol])
-list3 <- which(rowSums(list3)==(dim(list3)[2]))
-
-listx <- c(list1,list2)
-listx <- listx[duplicated(listx)]
-listx <- c(listx,list3)
-listx <- listx[duplicated(listx)]
-
-identicalchars <- length(listx)
-
 if (taxa_plus_nodenames[j]=="2") {
 tempbranches2 <- as.matrix(c("2", "0", "0"),ncol=1)
 } else {
@@ -169,6 +153,34 @@ temptemp <- as.matrix(recordtaxa[1:3,suppressWarnings(which(as.numeric(recordtax
 tempbranches2 <- cbind(tempbranches2,temptemp)
 }
 }
+
+taxaicol <- which(charsetable[1,]==taxa_plus_nodenames[i])
+taxajcol <- which(charsetable[1,]==taxa_plus_nodenames[j])
+
+list1 <- which(charsetable[2:(dim(charsetable)[1]),taxaicol]==charsetable[2:(dim(charsetable)[1]),taxajcol])
+list2 <- which(grepl(" ",charsetable[2:(dim(charsetable)[1]),taxajcol],fixed=TRUE)==FALSE)
+
+if (taxa_plus_nodenames[j]=="2" | taxa_plus_nodenames[i]=="2") {
+if (taxa_plus_nodenames[i]=="2") {
+taxaancjcol <- which(charsetable[1,]==tempbranches2[1,1])
+list3 <- (charsetable[2:(dim(charsetable)[1]),taxajcol]!=charsetable[2:(dim(charsetable)[1]),taxaancjcol])
+}
+if (taxa_plus_nodenames[j]=="2") {
+taxaancicol <- which(charsetable[1,]==tempbranches1[1,1])
+list3 <- (charsetable[2:(dim(charsetable)[1]),taxaicol]!=charsetable[2:(dim(charsetable)[1]),taxaancicol])
+}
+} else {
+taxaancjcol <- which(charsetable[1,]==tempbranches2[1,1])
+taxaancicol <- which(charsetable[1,]==tempbranches1[1,1])
+list3 <- which((charsetable[2:(dim(charsetable)[1]),taxaicol]!=charsetable[2:(dim(charsetable)[1]),taxaancicol]) | (charsetable[2:(dim(charsetable)[1]),taxaicol]!=charsetable[2:(dim(charsetable)[1]),taxaancicol]))
+}
+listx <- c(list1,list2)
+listx <- listx[duplicated(listx)]
+listx <- c(listx,list3)
+listx <- listx[duplicated(listx)]
+
+identicalchars <- length(listx)
+
 sumbranchlength <- sum(as.numeric(tempbranches1[3,1:(which(tempbranches1[1,] %in% tempbranches2[1,(dim(tempbranches2)[2])]))])) + sum(as.numeric(tempbranches2[3,1:(dim(tempbranches2)[2])]))
 temp <- c(taxa_plus_nodenames[i],taxa_plus_nodenames[j],identicalchars,sumbranchlength)
 charsbybranchlength <- rbind(charsbybranchlength,temp)
