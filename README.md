@@ -1,5 +1,5 @@
 #Mapping_SNPs_to_trees
-You want to assess how well your SNPs "fit" a given tree
+You want to assess how well your SNPs "fit" a given tree. I originally thought I might be able to use something like this to look for introgression by finding SNPs that showed correlated changes between branches, but the dataset I was using didn't seem to be powerful enough for this to show up when compared to expectations from simulations.
 
 So the way I have gone about this is to use MESQUITE. I converted a sequential Phylip file to a nexus file (with invariant sites excluded) with the code below:
 ```
