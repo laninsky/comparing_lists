@@ -139,18 +139,34 @@ x <- as.numeric(temptemp[1,1])
 tempbranches1 <- cbind(tempbranches1,temptemp)
 }
 } else {
-tempbranches1 <- as.matrix(c(2, 0, 0),ncol=1)
+tempbranches1 <- as.matrix(c("2", "0", "0"),ncol=1)
 }
 for (j in (i+1):(length(taxa_plus_nodenames))) {
-identicalchars <- sum(charsetable[2:(dim(charsetable)[1]),(which(charsetable[1,]==taxa_plus_nodenames[i]))]==charsetable[2:(dim(charsetable)[1]),(which(charsetable[1,]==taxa_plus_nodenames[j]))])
+
+taxaicol <- which(charsetable[1,]==taxa_plus_nodenames[i])
+taxajcol <- which(charsetable[1,]==taxa_plus_nodenames[j])
+taxacombcol <- c(taxaicol,taxajcol)
+
+list1 <- which(charsetable[2:(dim(charsetable)[1]),taxaicol]==charsetable[2:(dim(charsetable)[1]),taxajcol])
+list2 <- which(grepl(" ",charsetable[2:(dim(charsetable)[1]),taxajcol],fixed=TRUE)==FALSE)
+list3 <- (charsetable[2:(dim(charsetable)[1]),taxaicol]!=charsetable[2:(dim(charsetable)[1]),-taxacombcol])
+list3 <- which(rowSums(list3)==(dim(list3)[2]))
+
+listx <- c(list1,list2)
+listx <- listx[duplicated(listx)]
+listx <- c(listx,list3)
+listx <- listx[duplicated(listx)]
+
+identicalchars <- length(listx)
+
 if (taxa_plus_nodenames[j]=="2") {
-tempbranches2 <- as.matrix(c(2, 0, 0),ncol=1)
+tempbranches2 <- as.matrix(c("2", "0", "0"),ncol=1)
 } else {
 tempbranches2 <- as.matrix(recordtaxa[1:3,(which(recordtaxa[2,]==taxa_plus_nodenames[j]))])
 while (!(any(tempbranches2[1,] %in% tempbranches1[1,]))) {
-x <- as.numeric(tempbranches1[1,1])
+x <- as.numeric(tempbranches2[1,(dim(tempbranches2)[2])])
 temptemp <- as.matrix(recordtaxa[1:3,suppressWarnings(which(as.numeric(recordtaxa[2,])==x))])
-tempbranches2 <- cbind(tempbranches1,temptemp)
+tempbranches2 <- cbind(tempbranches2,temptemp)
 }
 }
 sumbranchlength <- sum(as.numeric(tempbranches1[3,1:(which(tempbranches1[1,] %in% tempbranches2[1,(dim(tempbranches2)[2])]))])) + sum(as.numeric(tempbranches2[3,1:(dim(tempbranches2)[2])]))
@@ -159,7 +175,7 @@ charsbybranchlength <- rbind(charsbybranchlength,temp)
 }
 }
 
-
+write.table(charsbybranchlength,"charsbybranchlengths.txt",col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
 
 
 
