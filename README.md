@@ -24,9 +24,10 @@ seqmatrix <- seqmatrix[,colstokeepindex]
 
 finaloutput <-  matrix(NA,ncol=1,nrow=(notaxa*2))
 nums <- (seq(1,(notaxa*2),2))
-for (i in nums) {
-finaloutput[nums[i]] <- paste(">",(unlist(strsplit(intable[((nums[i]+3)/2)],"\\s+"))[1]),sep="")
-finaloutput[i+1] <- paste(seqmatrix[((nums[i]+1)/2),],collapse="")
+
+for (i in 1:length(nums)) {
+finaloutput[nums[i],1] <- paste(">",(unlist(strsplit(intable[(i+1)],"\\s+"))[1]),sep="")
+finaloutput[(nums[i]+1),1] <- paste(seqmatrix[i,],collapse="")
 }
 
-write.table(finaloutput, "varsitesonly.fas",quote=FALSE, col.names=FALSE,row.names=FALSE, append=TRUE)
+write.table(finaloutput, "varsitesonly.fas",quote=FALSE, col.names=FALSE,row.names=FALSE)
