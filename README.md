@@ -1,5 +1,5 @@
 # running_SVDquartets
-Running SVDquartets on your *.nex file (similar to what SNAPP eats)
+Running SVDquartets on your *.nex file (similar to what SNAPP eats e.g. sites should be unlinked)
 
 #Step 1
 Install PAUP (http://people.sc.fsu.edu/~dswofford/paup_test/) and then run it from the directory with your *.nex files:
@@ -9,16 +9,10 @@ Modify the PBS file below to execute it for your data e.g.
 
 ```
 /scratch/a499a400/bin/paup4a146_centos64 
-execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile nthreads=6; savetrees file=SNAPP.qfm;
-```
+execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP_boot.qfm; savetrees file=SNAPP.qfm;
 
-I think the bootstrapping part only makes sense if you subsample the quartets, otherwise you will get the same tree each time
-
-```
-execute froggies-25pctincomplete-filled-MAFFT-gblocks.nexus; SVDQuartets evalQuartets=random bootstrap nreps=500 nthreads=6 treeFile=SNAPP_boot.qfm;
 gettrees file=SNAPP_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_con.tre;
 ```
-
 
 
 The svdq ? command gives you a list of the available options for use with SVDQuartets if you run it after launching paup:
