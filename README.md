@@ -9,9 +9,9 @@ Modify the PBS file below to execute it for your data e.g.
 
 ```
 /scratch/a499a400/bin/paup4a146_centos64 
-execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP_boot.qfm; savetrees file=SNAPP.qfm;
+execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP.qfm; savetrees file=SNAPP_boot.qfm;
 ```
-For some reason the boostrap trees don't seem to get printed out (instead, you get the actual tree over and over again). Suggest running it with bootstraps to get the majority consensus bootstrap tree printed to standard out, and then run it without bootstrapping to get the actual tree your bootstraps should pap to).
+The 50% majority consensus bootstrap tree will be printed to SNAPP_boot.qfm. The bootstraps are rendered as 'Branch Times' in Fig tree.
 
 The svdq ? command gives you a list of the available options for use with SVDQuartets if you run it after launching paup:
 ```
