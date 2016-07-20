@@ -10,10 +10,8 @@ Modify the PBS file below to execute it for your data e.g.
 ```
 /scratch/a499a400/bin/paup4a146_centos64 
 execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP_boot.qfm; savetrees file=SNAPP.qfm;
-
-gettrees file=SNAPP_boot.qfm; contree all/strict=no majrule=yes usetreewts=yes treefile=SNAPP_con.tre;
 ```
-
+For some reason the boostrap trees don't seem to get printed out (instead, you get the actual tree over and over again). Suggest running it with bootstraps to get the majority consensus bootstrap tree printed to standard out, and then run it without bootstrapping to get the actual tree your bootstraps should pap to).
 
 The svdq ? command gives you a list of the available options for use with SVDQuartets if you run it after launching paup:
 ```
@@ -46,14 +44,5 @@ http://www.stat.osu.edu/~lkubatko/SVDquartets_tutorial2015.html
 
 If you don't evaluate all of the quartets, bump up the number of quartets sampled
 
-Make sure to change the qfile, bootstrap treeFile and tree file to whatever you would rather call them. This method is going to output the QFM tree inference method. The step below should output the Quartet Maxcut method
-
-#Step 4 -- THIS IS AS FAR AS I HAVE GOT
-Get a copy of Quartet MaxCut (http://research.haifa.ac.il/~ssagi/software/QMCN.tar.gz)
-````
-/scratch/a499a400/bin/QMCN/find-cut-Linux-64 qrtt=SNAPP_60.qfile
-/scratch/a499400/bin/QMCN/quartet-agreement-Linux-64 tree=MXCNtree.dat qrtt=SNAPP_60.qfile 
-/scratch/a499a400/bin/QMCN/genTreeAndQuartets-Linux-64 42 111930 55.9 0
-
-
+Make sure to change the qfile, bootstrap treeFile and tree file to whatever you would rather call them. This method is going to output the QFM tree inference method.
 
