@@ -8,8 +8,8 @@ Install PAUP (http://people.sc.fsu.edu/~dswofford/paup_test/) and then run it fr
 Modify the PBS file below to execute it for your data e.g.
 
 ```
-/scratch/a499a400/bin/paup4a146_centos64 
-execute SNAPP.nex; SVDQuartets evalQuartets=all showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP.qfm; savetrees file=SNAPP_boot.qfm;
+/scratch/a499a400/bin/paup4a150_centos64 
+execute SNAPP_phased.nex; SVDQuartets evalQuartets=all partition=frogspecies speciesTree=yes showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP.qfm; savetrees file=SNAPP_boot.qfm;
 ```
 The 50% majority consensus bootstrap tree will be printed to SNAPP_boot.qfm. The bootstraps are rendered as 'Branch Times' in Fig tree.
 
