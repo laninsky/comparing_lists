@@ -9,9 +9,9 @@ Modify the PBS file below to execute it for your data e.g.
 
 ```
 /scratch/a499a400/bin/paup4a150_centos64 
-execute SNAPP_phased.nex; SVDQuartets evalQuartets=all partition=frogspecies speciesTree=yes showScores=yes qfile=SNAPP_60.qfile bootstrap nreps=500 nthreads=6 treeFile=SNAPP.qfm; savetrees file=SNAPP_boot.qfm;
+execute SNAPP_phased.nex; SVDQuartets evalQuartets=all partition=frogspecies speciesTree=no showScores=yes qfile=SNAPP_60.qfile savetrees; SVDQuartets evalQuartets=all speciesTree=no showScores=yes bootstrap nreps=500 nthreads=6; savetrees file=SNAPP_boot.qfm;
 ```
-The 50% majority consensus bootstrap tree will be printed to SNAPP_boot.qfm. The bootstraps are rendered as 'Branch Times' in Fig tree.
+The 50% majority consensus bootstrap tree will be printed to SNAPP_boot.qfm, actual tree will be SNAPP.qfm. The bootstraps are rendered as 'Branch Times' in Fig tree.
 
 The svdq ? command gives you a list of the available options for use with SVDQuartets if you run it after launching paup:
 ```
