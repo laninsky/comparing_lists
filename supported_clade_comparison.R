@@ -44,20 +44,88 @@ for (i in 2:(length(tree1))) {
     # This bit needs to be tweaked - ideally you would go backwards through the brackets array until the count of "(" the count of ")" and then figure out how far this in from the beginning
     vect <- paste(tree1[1:(i-1)],collapse="")
     brackets <- unlist(strsplit(vect,"[0-9]+"))
-    brackets <- brackets[(length(brackets))]
-    no_brackets <- nchar(brackets) - nchar(gsub("\\)","",brackets))
+    opens <- 0
+    closes <- 0
+    for (j in (length(brackets)):1) {
+        opens <- opens + nchar(brackets[j]) - nchar(gsub("\\(","",brackets[j]))
+        closes  <- closes + nchar(brackets[j]) - nchar(gsub("\\)","",brackets[j]))
+        if (closes <= opens) {
+          log_closes <- closes
+        }
+    }
+    
     brackets <- unlist(strsplit(vect,"\\("))
-    no_vect <- paste(brackets[(length(brackets)+1-no_brackets):(length(brackets))],collapse="")
+    no_vect <- paste(brackets[(log_closes+1):(length(brackets))],collapse="")
     no_vect <- unlist(strsplit(no_vect,","))
     taxa <- NULL
     for (j in 1:(length(no_vect))) {
-      taxa <- c(taxa, unlist(strsplit(no_vect[j],"\\[\\]"))[1])
+      if (length(unlist(strsplit(no_vect[j],"\\[\\]")))>1) {
+        taxa <- c(taxa, unlist(strsplit(no_vect[j],"\\[\\]"))[1])
+      }
     }
-    temp <- c(posterior, paste(sort(tree1_taxa[(which(taxa==tree1_taxa[,1])),2]),collapse=","))
+    temp <- c(posterior, paste(sort(tree1_taxa[(which(tree1_taxa[,1] %in% taxa)),2]),collapse=","))
     tree1_output <- rbind(tree1_output,temp)
   }
 }
     
-    
-    
+tree1_output_title <- tree1_output[1,]
+tree1_output <- tree1_output[-1,]
+tree1_output <- tree1_output[order(tree1_output[,2]),]
+tree1_output <- rbind(tree1_output_title,tree1_output)
+
+
+tree2 <- gsub("&.*?length_range=\\{.*?\\},","",tree2)
+tree2 <- gsub("rate=.*?rate_range=\\{.*?\\}","",tree2)
+tree2 <- gsub("rate=.*?\\]","\\]",tree2)
+tree2 <- gsub("&.*?posterior","posterior",tree2)
+tree2 <- unlist(strsplit(tree2,"posterior"))  
   
+  
+tree2_output <- c("posterior","species")
+  
+for (i in 2:(length(tree2))) {
+  posterior <- as.numeric(gsub("=","",(unlist(strsplit(tree2[i],","))[1]),fixed=TRUE))
+  if(posterior>=cutoff) {
+    
+    # This bit needs to be tweaked - ideally you would go backwards through the brackets array until the count of "(" the count of ")" and then figure out how far this in from the beginning
+    vect <- paste(tree2[1:(i-1)],collapse="")
+    brackets <- unlist(strsplit(vect,"[0-9]+"))
+    opens <- 0
+    closes <- 0
+    for (j in (length(brackets)):1) {
+        opens <- opens + nchar(brackets[j]) - nchar(gsub("\\(","",brackets[j]))
+        closes  <- closes + nchar(brackets[j]) - nchar(gsub("\\)","",brackets[j]))
+        if (closes <= opens) {
+          log_closes <- closes
+        }
+    }
+    
+    brackets <- unlist(strsplit(vect,"\\("))
+    no_vect <- paste(brackets[(log_closes+1):(length(brackets))],collapse="")
+    no_vect <- unlist(strsplit(no_vect,","))
+    taxa <- NULL
+    for (j in 1:(length(no_vect))) {
+      if (length(unlist(strsplit(no_vect[j],"\\[\\]")))>1) {
+        taxa <- c(taxa, unlist(strsplit(no_vect[j],"\\[\\]"))[1])
+      }
+    }
+    temp <- c(posterior, paste(sort(tree2_taxa[(which(tree2_taxa[,1] %in% taxa)),2]),collapse=","))
+    tree2_output <- rbind(tree2_output,temp)
+  }
+}
+    
+tree2_output_title <- tree2_output[1,]
+tree2_output <- tree2_output[-1,]
+tree2_output <- tree2_output[order(tree2_output[,2]),]
+tree2_output <- rbind(tree2_output_title,tree2_output)  
+  
+  
+print(paste(sum(tree1_output[,2] %in% tree2_output[,2])," clades out of ",dim(tree1_output)[1]," highly supported clades in tree 1 are also found in tree 2.",sep=""))
+print(paste(sum(tree2_output[,2] %in% tree1_output[,2])," clades out of ",dim(tree2_output)[1]," highly supported clades in tree 2 are also found in tree 1.",sep="")) 
+
+print("The following clades were highly supported in tree 1 but not highly supported or not found in tree 2")
+print(rbind(tree1_output_title,tree1_output[(which(!(tree1_output[,2] %in% tree2_output[,2]))),]))
+  
+print("The following clades were highly supported in tree 2 but not highly supported or not found in tree 1")
+print(rbind(tree2_output_title,tree2_output[(which(!(tree2_output[,2] %in% tree1_output[,2]))),]))
+
