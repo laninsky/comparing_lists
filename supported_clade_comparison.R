@@ -31,5 +31,8 @@ tree2 <- unlist(strsplit(tree2," "))[4]
 
 tree1 <- gsub("&.*?length_range=\\{.*?\\},","",tree1)
 tree1 <- gsub("rate=.*?rate_range=\\{.*?\\}","",tree1)
-tree2 <- gsub("&.*?length_range=\\{.*?\\},","",tree2)
-tree2 <- gsub("rate=.*?rate_range=\\{.*?\\}","",tree2)
+tree1 <- gsub("rate=.*?\\]","\\]",tree1)
+tree1 <- gsub("&.*?posterior","posterior",tree1)
+tree1 <- unlist(strsplit(tree1,"posterior"))
+
+tree1_output <- 
