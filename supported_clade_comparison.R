@@ -35,4 +35,29 @@ tree1 <- gsub("rate=.*?\\]","\\]",tree1)
 tree1 <- gsub("&.*?posterior","posterior",tree1)
 tree1 <- unlist(strsplit(tree1,"posterior"))
 
-tree1_output <- 
+tree1_output <- c("posterior","species")
+  
+for (i in 2:(length(tree1))) {
+  posterior <- as.numeric(gsub("=","",(unlist(strsplit(tree1[i],","))[1]),fixed=TRUE))
+  if(posterior>=cutoff) {
+    
+    # This bit needs to be tweaked - ideally you would go backwards through the brackets array until the count of "(" the count of ")" and then figure out how far this in from the beginning
+    vect <- paste(tree1[1:(i-1)],collapse="")
+    brackets <- unlist(strsplit(vect,"[0-9]+"))
+    brackets <- brackets[(length(brackets))]
+    no_brackets <- nchar(brackets) - nchar(gsub("\\)","",brackets))
+    brackets <- unlist(strsplit(vect,"\\("))
+    no_vect <- paste(brackets[(length(brackets)+1-no_brackets):(length(brackets))],collapse="")
+    no_vect <- unlist(strsplit(no_vect,","))
+    taxa <- NULL
+    for (j in 1:(length(no_vect))) {
+      taxa <- c(taxa, unlist(strsplit(no_vect[j],"\\[\\]"))[1])
+    }
+    temp <- c(posterior, paste(sort(tree1_taxa[(which(taxa==tree1_taxa[,1])),2]),collapse=","))
+    tree1_output <- rbind(tree1_output,temp)
+  }
+}
+    
+    
+    
+  
