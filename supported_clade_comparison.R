@@ -1,4 +1,4 @@
-supported_clade_comparison(path_file_to_tree1,path_file_to_tree2,cutoff) {
+supported_clade_comparison <- function(path_file_to_tree1,path_file_to_tree2,cutoff) {
 
 #path_file_to_tree1 <- "C:\\Users\\a499a400\\Dropbox\\Kaloula frogs\\Nov2015_submission\\beast\\Run 1\\16Jun2015\\annotated"
 #path_file_to_tree2 <- "C:\\Users\\a499a400\\Dropbox\\Kaloula frogs\\Nov2015_submission\\beast\\Server_run_extensions\\annotated_14July2015_concatenated"
