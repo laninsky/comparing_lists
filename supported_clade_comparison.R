@@ -129,3 +129,4 @@ print(rbind(tree1_output_title,tree1_output[(which(!(tree1_output[,2] %in% tree2
 print("The following clades were highly supported in tree 2 but not highly supported or not found in tree 1")
 print(rbind(tree2_output_title,tree2_output[(which(!(tree2_output[,2] %in% tree1_output[,2]))),]))
 
+}
