@@ -29,19 +29,14 @@ tree1 <- unlist(strsplit(tree1," "))[4]
 tree2 <- tree2[tree2_tree]
 tree2 <- unlist(strsplit(tree2," "))[4]
 
-tree1 <- gsub("&.*?length_range=\\{.*?\\},","",tree1)
-tree1 <- gsub("rate=.*?rate_range=\\{.*?\\}","",tree1)
-tree1 <- gsub("rate=.*?\\]","\\]",tree1)
-tree1 <- gsub("&.*?posterior","posterior",tree1)
-tree1 <- unlist(strsplit(tree1,"posterior"))
 
+tree1 <- gsub("(\\[)(.*?)(posterior=.*?)?(\\])","\\1\\3\\4",tree1,perl=TRUE)
+tree1 <- unlist(strsplit(tree1,"posterior"))
 tree1_output <- c("posterior","species")
   
 for (i in 2:(length(tree1))) {
-  posterior <- as.numeric(gsub("=","",(unlist(strsplit(tree1[i],","))[1]),fixed=TRUE))
+  posterior <- as.numeric(gsub("=","",(unlist(strsplit(tree1[i],"\\]"))[1]),fixed=TRUE))
   if(posterior>=cutoff) {
-    
-    # This bit needs to be tweaked - ideally you would go backwards through the brackets array until the count of "(" the count of ")" and then figure out how far this in from the beginning
     vect <- paste(tree1[1:(i-1)],collapse="")
     brackets <- unlist(strsplit(vect,"[0-9]+"))
     opens <- 0
@@ -74,20 +69,13 @@ tree1_output <- tree1_output[order(tree1_output[,2]),]
 tree1_output <- rbind(tree1_output_title,tree1_output)
 
 
-tree2 <- gsub("&.*?length_range=\\{.*?\\},","",tree2)
-tree2 <- gsub("rate=.*?rate_range=\\{.*?\\}","",tree2)
-tree2 <- gsub("rate=.*?\\]","\\]",tree2)
-tree2 <- gsub("&.*?posterior","posterior",tree2)
-tree2 <- unlist(strsplit(tree2,"posterior"))  
-  
-  
+tree2 <- gsub("(\\[)(.*?)(posterior=.*?)?(\\])","\\1\\3\\4",tree2,perl=TRUE)
+tree2 <- unlist(strsplit(tree2,"posterior"))
 tree2_output <- c("posterior","species")
   
 for (i in 2:(length(tree2))) {
-  posterior <- as.numeric(gsub("=","",(unlist(strsplit(tree2[i],","))[1]),fixed=TRUE))
+  posterior <- as.numeric(gsub("=","",(unlist(strsplit(tree2[i],"\\]"))[1]),fixed=TRUE))
   if(posterior>=cutoff) {
-    
-    # This bit needs to be tweaked - ideally you would go backwards through the brackets array until the count of "(" the count of ")" and then figure out how far this in from the beginning
     vect <- paste(tree2[1:(i-1)],collapse="")
     brackets <- unlist(strsplit(vect,"[0-9]+"))
     opens <- 0
