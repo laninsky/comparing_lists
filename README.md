@@ -1,4 +1,7 @@
 # To get a list of overlapping UCE loci between two different datasets
+Originally located at:  
+https://github.com/laninsky/comparing_lists
+
 Get a list of loci from the incomplete folders for each of your taxa e,g,:
 
 ```
