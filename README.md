@@ -15,3 +15,5 @@ R: R Core Team. 2015. R: A language and environment for statistical computing. U
 Stringr:  Hadley Wickham (2012). stringr: Make it easier to work with strings..
   R package version 0.6.2. http://CRAN.R-project.org/package=stringr (for up-to-date citation information run citation("stringr" in R)
 
+### version history
+Wrote this as a one-off goof to help out a lab mate. I am no longer actively maintaining this repository, but will respond to issues.
