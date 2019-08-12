@@ -31,3 +31,13 @@ finaloutput[(nums[i]+1),1] <- paste(seqmatrix[i,],collapse="")
 }
 
 write.table(finaloutput, "varsitesonly.fas",quote=FALSE, col.names=FALSE,row.names=FALSE)
+```
+
+### Version history
+This script was written for the following manuscript:
+Alexander, A.M., Su, Y.C., Oliveros, C.H., Olson, K.V., Travers, S.L. and Brown, R.M., 2017. Genomic data reveals potential for hybridization, introgression, and incomplete lineage sorting to confound phylogenetic relationships in an adaptive radiation of narrow‐mouth frogs. Evolution, 71(2), pp.475-488. 
+
+I am no longer actively maintaining this repository, but will respond to issues.
+
+This script wouldn't be possible without:  
+R: R Core Team. 2015. R: A language and environment for statistical computing. URL http://www.R-project.org/. R Foundation for Statistical Computing, Vienna, Austria. https://www.r-project.org/
