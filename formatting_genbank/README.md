@@ -1,4 +1,6 @@
 # formatting_genbank
+Originally at: https://github.com/laninsky/formatting_genbank
+
 Going from my crazy custom excel annotations into sequin format i.e. of absolutely no use to anyone but me :)
 
 ### Version history
