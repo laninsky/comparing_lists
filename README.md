@@ -21,3 +21,6 @@ You can crib the code at: https://github.com/laninsky/creating_dadi_SNP_input_fr
 Source or copy the R script from this directory (structure_into_treemix.R) into R. Invoke by structure_into_treemix(working_dir,structure_file) e.g. structure_into_treemix("C:/Users/a499a400/Downloads","sangui_structure_popmap.txt")
 
 It will spit out a file called treemix_output.txt.
+
+## Version history
+Wrote this as a one-off goof to help out a lab mate. I am no longer actively maintaining this repository, but will respond to issues.
