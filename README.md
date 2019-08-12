@@ -1,4 +1,4 @@
-#Mapping_SNPs_to_trees
+# Mapping_SNPs_to_trees
 You want to assess how well your SNPs "fit" a given tree. I originally thought I might be able to use something like this to look for introgression by finding SNPs that showed correlated changes between branches, but the dataset I was using didn't seem to be powerful enough for this to show up when compared to expectations from simulations.
 
 So the way I have gone about this is to use MESQUITE. I converted a sequential Phylip file to a nexus file (with invariant sites excluded) with the code below:
@@ -82,10 +82,10 @@ In addition: Warning messages:
 1: In sort(as.numeric(nodenames)) : NAs introduced by coercion
 2: In order(as.numeric(recordtaxa[, 2])) : NAs introduced by coercion
 ```
-#Output
+### Output
 You should a two tab-delimited file as output (state_changes_along_branches.txt). This file has three rows at the top - the first row has the ancestral nodes, and the second row has the daughter nodes (in this file, each of the daughters has its own column, rather than being comma separated), and the third row has the branchlengths between these. In the left hand column of the subsequent rows are the character names (e.g. SNPs). For each column of ancestor > daughter, the number of inferred state changes along the branch, divided by branchlength, are given for each SNP.
 
-#MSDS
+### MSDS
 You are then probably going to want to visualize branches in the tree which seem to have more or less state changes given their length. These might be longer branch lengths (where potentially multiple substitutions have masked each other), or potentially areas of the genome affected by introgression etc.
 ```
 setwd(working_dir)
@@ -128,7 +128,7 @@ output <- cbind(output,outputother)
 write.table(output,"summary_of_branches.txt",col.names=FALSE,row.names=FALSE,quote=FALSE,sep="\t")
 ```
 
-#Correlations in changes between branches
+### Correlations in changes between branches
 
 ```
 setwd("C:/Users/a499a400/Dropbox/chan")
@@ -180,4 +180,5 @@ recordtaxa[1:2,(rsquares[(dim(rsquares)[1]-5):(dim(rsquares)[1]),2])]
 ```
 i.e. taking the result from the first columns: the specific SNPs that have changes in the branch that leads from node 40 > 41, are correlated with the changes in the branch that leads from 41 to kaloula_walteri
 
-
+### Version history
+Wrote these scripts for analyses that didn't end up being included in Alexander et al. (2017). I am no longer actively maintaining this repository, but will respond to issues.
