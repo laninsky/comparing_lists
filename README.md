@@ -1,10 +1,10 @@
 # running_SVDquartets
 Running SVDquartets on your *.nex file (similar to what SNAPP eats e.g. sites should be unlinked)
 
-#Step 1
+### Step 1
 Install PAUP (http://people.sc.fsu.edu/~dswofford/paup_test/) and then run it from the directory with your *.nex files:
 
-#Step 2
+### Step 2
 Modify the PBS file below to execute it for your data e.g.
 
 ```
@@ -45,4 +45,8 @@ http://www.stat.osu.edu/~lkubatko/SVDquartets_tutorial2015.html
 If you don't evaluate all of the quartets, bump up the number of quartets sampled
 
 Make sure to change the qfile, bootstrap treeFile and tree file to whatever you would rather call them. This method is going to output the QFM tree inference method.
+
+### Version history:  
+This script was written for:  
+Alexander, A.M., Su, Y.C., Oliveros, C.H., Olson, K.V., Travers, S.L. and Brown, R.M., 2017. Genomic data reveals potential for hybridization, introgression, and incomplete lineage sorting to confound phylogenetic relationships in an adaptive radiation of narrow‐mouth frogs. Evolution, 71(2), pp.475-488.
 
