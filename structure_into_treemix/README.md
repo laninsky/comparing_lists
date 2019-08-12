@@ -25,4 +25,4 @@ Source or copy the R script from this directory (structure_into_treemix.R) into 
 It will spit out a file called treemix_output.txt.
 
 ## Version history
-Wrote this as a one-off goof to help out a lab mate. I am no longer actively maintaining this repository, but will respond to issues.
+Wrote this for the Sanguirana TBD paper. I am no longer actively maintaining this repository, but will respond to issues.
