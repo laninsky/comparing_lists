@@ -85,6 +85,9 @@ output <- rbind(header,output)
 
 write.table(output,"loci_found_in_both_with_pis.txt",col.names=FALSE,row.names=FALSE,quote=FALSE)
 ```
+### Version history
+v0.0 published with sanguirana TBD
 
-
+This script wouldn't be possible without:
+R: R Core Team. 2015. R: A language and environment for statistical computing. URL http://www.R-project.org/. R Foundation for Statistical Computing, Vienna, Austria. https://www.r-project.org/
 
