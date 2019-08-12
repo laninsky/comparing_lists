@@ -1,4 +1,6 @@
 # structure_into_treemix
+Originally at: https://github.com/laninsky/structure_into_treemix
+
 Have you got a structure file that you would like to convert to treemix? Step right up!
 
 #What do I need?
