@@ -1,4 +1,5 @@
 # renaming_things_inside_nexus_file
+Originally at: https://github.com/laninsky/renaming_things_inside_nexus_sequence_file
 
 Things you need:
 
