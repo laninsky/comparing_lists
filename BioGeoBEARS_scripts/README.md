@@ -1,4 +1,6 @@
 # BioGeoBEARS_scripts
+Originally at: https://github.com/laninsky/BioGeoBEARS_scripts
+
 Just some of my own notes on how to run BioGeoBEARS - please see http://phylo.wikidot.com/biogeobears for actual instructions!
 
 First you need to make sure you have installed optimx, snow and BioGeoBEARS using install.packages("")
