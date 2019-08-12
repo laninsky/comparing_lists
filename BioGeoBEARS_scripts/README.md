@@ -561,4 +561,4 @@ load(file="mitoteststable_v1.Rdata")
 ```
 
 ## Version history
-This code was written for analyses that didn't end up being included in a paper. I am no longer actively maintaining this repository, but will respond to issues.
+This code was written for analyses that didn't end up being included in Alexander et al. (2017). I am no longer actively maintaining this repository, but will respond to issues.
