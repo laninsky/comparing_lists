@@ -1,4 +1,6 @@
 # running_SVDquartets
+Originally at: https://github.com/laninsky/running_SVDquartets
+
 Running SVDquartets on your *.nex file (similar to what SNAPP eats e.g. sites should be unlinked)
 
 ### Step 1
