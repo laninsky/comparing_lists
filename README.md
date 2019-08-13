@@ -1,4 +1,5 @@
 # converting_concat_phylip_to_fasta_SNP
+Originally at: https://github.com/laninsky/converting_concat_phylip_to_fasta_SNP
 
 ```
 setwd("C:\\Users\\a499a400\\Dropbox\\Kaloula frogs")
